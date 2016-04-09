@@ -7,13 +7,12 @@ chai.use(chaiFiles);
 
 const bitmap = require(__dirname + '/../lib/read');
 
-//read bitmap
 //transform bitmap
 //write bitmap
 
 describe('Is new file created', () => {
-  before(()  => {
-    bitmap.deleteBMP(bitmap.imagePath + '_new.bmp');
+  before(() => {
+    bitmap.checkIfExists(bitmap.imagePath + '_new.bmp');
   })
   it('filename_new.bmp should not exist', () => {
     expect(file('palette-bitmap_new.bmp')).to.not.exist;
@@ -21,11 +20,12 @@ describe('Is new file created', () => {
 
   it('filename_new.bmp should exist', () => {
     bitmap.readBMP(bitmap.imagePath + '.bmp');
-    expect(file('palette-bitmap_new.bmp')).to.exist;
+    process.nextTick(() => {
+      expect(file('palette-bitmap_new.bmp')).to.exist;
+    });
   });
 
   it('filename.bmp data should not match filename_new.bmp data', () => {
 
   });
-
 });
