@@ -6,16 +6,26 @@ var file = chaiFiles.file;
 chai.use(chaiFiles);
 
 const bitmap = require(__dirname + '/../lib/read');
+const fs = require('fs');
 
 describe('Is new file created', () => {
-  it('filename_new.bmp should exist', () => {
-    bitmap.readBMP(bitmap.imagePath + '.bmp');
-    process.nextTick(() => {
-      expect(file('palette-bitmap_new.bmp')).to.exist;
+    it('filename_new.bmp should exist', () => {
+        bitmap.readBMP(bitmap.imagePath + '.bmp');
+        process.nextTick(() => {
+          expect(file('palette-bitmap_new.bmp')).to.exist;
+        });
     });
-  });
 
-  it('filename.bmp data should not match filename_new.bmp data', () => {
-
-  });
+    it('filename.bmp data should not match filename_new.bmp data', (done) => {
+        fs.readFile(__dirname + '/../palette-bitmap.bmp', (err, data) => {
+            if (err) console.log(err);
+            console.log(data);
+            fs.readFile(__dirname + '/../palette-bitmap_new.bmp', (err, newData) => {
+                if (err) console.log(err);
+                console.log(newData);
+                expect(newData).to.not.eql(data);
+                done();
+            });
+        });
+    });
 });
