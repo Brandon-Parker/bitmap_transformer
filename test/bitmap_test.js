@@ -7,17 +7,7 @@ chai.use(chaiFiles);
 
 const bitmap = require(__dirname + '/../lib/read');
 
-//transform bitmap
-//write bitmap
-
 describe('Is new file created', () => {
-  before(() => {
-    bitmap.checkIfExists(bitmap.imagePath + '_new.bmp');
-  })
-  it('filename_new.bmp should not exist', () => {
-    expect(file('palette-bitmap_new.bmp')).to.not.exist;
-  });
-
   it('filename_new.bmp should exist', () => {
     bitmap.readBMP(bitmap.imagePath + '.bmp');
     process.nextTick(() => {
