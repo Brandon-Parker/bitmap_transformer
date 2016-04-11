@@ -28,5 +28,8 @@ describe('Is new file created', () => {
       });
     });
   });
+  after(() => {
+    bitmap.deleteBMP(__dirname + '/../new.bmp');
+  });
 
 });
